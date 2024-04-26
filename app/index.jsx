@@ -1,15 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { Redirect, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import { View, Text, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
+import { useGlobalContext } from "../context/GlobalProvider";
 // import * as GlobalProvider from "../context/GlobalProvider";
 
 const Welcome = () => {
-  // const { loading, isLogged } = GlobalProvider.useGlobalContext();
+const {isLoading, isLoggedIn} = useGlobalContext()
 
+if(!isLoading && isLoggedIn) return <Redirect href='/home' />
   // if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
@@ -57,6 +59,7 @@ const Welcome = () => {
             handlePress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7"
           />
+          <Link href='/home'>Home</Link>
         </View>
       </ScrollView>
 

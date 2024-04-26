@@ -2,14 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import icons from "../constants/icons";
 
-interface FormFieldProps {
-  title: string;
-  value: string;
-  handleChangeText: (e: string) => void;
-  otherStyles: string;
-  keyboardType?: string;
-  placeholder?: string;
-}
+
 
 const FormField = ({
   title,
@@ -19,7 +12,7 @@ const FormField = ({
   placeholder,
   keyboardType,
   ...props
-}: FormFieldProps) => {
+}) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
     <View className={`space-y-2 ${otherStyles}`}>

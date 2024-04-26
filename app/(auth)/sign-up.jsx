@@ -1,21 +1,38 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import images from "../../constants/images";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { createUser } from "../../lib/appwrite";
 
-const SignIn = () => {
+const SignUp = () => {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
   });
 
   const [isSubmitting, setisSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert("Error", "Please fill all fields");
+    }
+    setisSubmitting(true);
+
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+      // Set it to global state
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setisSubmitting(false);
+    }
+  };
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -32,8 +49,15 @@ const SignIn = () => {
           />
 
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to PiK
+            New to PiK. Sign Up to PiK
           </Text>
+
+          <FormField
+            title="Username"
+            value={form.username}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
+            otherStyles="mt-10"
+          />
 
           <FormField
             title="Email"
@@ -57,15 +81,15 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
 
-          <View className="flex justify-center pt-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
+          <View className="flex justify-center pt-5 flex-col gap-2 w-[45vh]">
+            <Text className="text-sm text-gray-100 font-pregular">
+              Have an account already?
             </Text>
             <Link
-              href="/sign-up"
-              className="text-lg font-psemibold text-secondary"
+              href="/sign-in"
+              className="text-md font-psemibold text-secondary"
             >
-              Signup
+              Sign In to your account
             </Link>
           </View>
         </View>
@@ -74,4 +98,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
