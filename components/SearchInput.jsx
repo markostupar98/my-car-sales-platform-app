@@ -13,7 +13,7 @@ const SearchInput = ({
   keyboardType,
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary space-x-4 flex flex-row items-center">
       <TextInput
