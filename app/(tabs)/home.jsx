@@ -15,6 +15,7 @@ import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
 import { getAllCars } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
+import CarCard from "../../components/CarCard";
 
 const Home = () => {
 const {data:cars, refetch } = useAppwrite(getAllCars)
@@ -36,7 +37,8 @@ const {data:cars, refetch } = useAppwrite(getAllCars)
         data={cars}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text className="text-3xl text-white">{item.make}</Text>
+          <CarCard car={item} />
+          // <Text className="text-3xl text-white">{item.make}</Text>
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
