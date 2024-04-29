@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#CADCFC"
+      "backgroundColor": "#ffffff"
     },
     "scheme": "sora",
     "assetBundlePatterns": ["**/*"],
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#CADCFC"
+        "backgroundColor": "#ffffff"
       },
       "package": "marko98"
     },

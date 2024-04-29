@@ -1,5 +1,6 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { icons } from "../constants";
 
 const CarCard = ({
   car: {
@@ -9,7 +10,8 @@ const CarCard = ({
     transmision,
     driveType,
     description,
-    owner,
+    users:{avatar},
+    image
   },
 }) => {
   return (
@@ -23,12 +25,18 @@ const CarCard = ({
             <Text className='text-white font-psemibold'>
               {make}
             </Text>
+            <Text className='text-xs text-gray-100 font-pregular' numberOfLines={1}>
+              {owner}
+            </Text>
           </View>
         </View>
+        <View className='pt-2'>
+          <Image source={icons.menu} className='w-5 h-5' resizeMode="contain" />
+        </View>
       </View>
-      <Text className='text-2xl text-white'>
-        {make}
-      </Text>
+      <TouchableOpacity>
+        <Image source={{uri:image}} />
+      </TouchableOpacity>
     </View>
   );
 };

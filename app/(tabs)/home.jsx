@@ -11,14 +11,16 @@ import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
-import Trending from "../../components/Trending";
+import Latest from "../../components/Latest";
 import EmptyState from "../../components/EmptyState";
-import { getAllCars } from "../../lib/appwrite";
+import { getAllCars, getLatestCars } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import CarCard from "../../components/CarCard";
 
 const Home = () => {
 const {data:cars, refetch } = useAppwrite(getAllCars)
+const {data:latestCars } = useAppwrite(getLatestCars)
+
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -64,7 +66,7 @@ const {data:cars, refetch } = useAppwrite(getAllCars)
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Cars
               </Text>
-              {/* <Trending data= /> */}
+              <Latest data={latestCars ?? []} />
             </View>
           </View>
         )}
