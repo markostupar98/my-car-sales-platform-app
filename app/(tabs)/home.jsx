@@ -66,7 +66,7 @@ const {data:latestCars } = useAppwrite(getLatestCars)
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Cars
               </Text>
-              <Latest data={latestCars ?? []} />
+              {/* <Latest data={latestCars ?? []} /> */}
             </View>
           </View>
         )}

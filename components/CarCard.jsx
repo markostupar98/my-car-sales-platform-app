@@ -26,7 +26,7 @@ const CarCard = ({
               {make}
             </Text>
             <Text className='text-xs text-gray-100 font-pregular' numberOfLines={1}>
-              {owner}
+              {/* {owner} */}
             </Text>
           </View>
         </View>
