@@ -16,17 +16,19 @@ import EmptyState from "../../components/EmptyState";
 import { getAllCars, getLatestCars } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import CarCard from "../../components/CarCard";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
-const {data:cars, refetch } = useAppwrite(getAllCars)
-const {data:latestCars } = useAppwrite(getLatestCars)
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
+  const { data: cars, refetch } = useAppwrite(getAllCars);
+  const { data: latestCars } = useAppwrite(getLatestCars);
 
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await refetch()
+    await refetch();
     // refetching cars if any new is posted
     setRefreshing(false);
   };
@@ -50,7 +52,7 @@ const {data:latestCars } = useAppwrite(getLatestCars)
                   Welcome Back!
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  markostupar98
+                  {user?.username}
                 </Text>
               </View>
               <View className="mt-1.5">

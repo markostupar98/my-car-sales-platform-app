@@ -3,19 +3,25 @@ import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchInput from "../../components/SearchInput";
 import EmptyState from "../../components/EmptyState";
-import { getUserCars, searchCars } from "../../lib/appwrite";
+import { getUserCars, searchCars, signOut } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import CarCard from "../../components/CarCard";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import UserInfo from "../../components/UserInfo";
 
 const Profile = () => {
-  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+  const { user, setUser, setIsLogged } = useGlobalContext();
   const { data: cars } = useAppwrite(() => getUserCars(user.$id));
 
-  const logout = () => {};
+  const logout = async () => {
+    await signOut();
+    setUser(null)
+    setIsLogged(false)
+
+    router.replace('/sign-in')
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -45,7 +51,24 @@ const Profile = () => {
                 resizeMode="cover"
               />
             </View>
-            <UserInfo />
+            <UserInfo
+              title={user?.username}
+              containerStyles="mt-5"
+              titleStyles="text-lg"
+            />
+            <View className="mt-5 flex-row">
+              <UserInfo
+                title={cars?.length || 0}
+                subtitle="Cars"
+                containerStyles="mr-10"
+                titleStyles="text-xl"
+              />
+              {/* <UserInfo
+                title={user?.liked}
+                containerStyles="mt-5"
+                titleStyles="text-lg"
+              /> */}
+            </View>
           </View>
         )}
         ListEmptyComponent={() => (
